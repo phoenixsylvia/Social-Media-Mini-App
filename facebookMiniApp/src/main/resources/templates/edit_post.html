@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>FaceBook Mini</title>
+  <link th:href="@{/bootstrap4.css}" rel="stylesheet">
+</head>
+<body>
+<nav class="nav_bar">
+  <a class="navbar-brand home-button" th:href="@{/home}">HOME</a>
+
+  <div>
+    <a style="margin-right: 10px" class="nav-item" th:href="@{/users/{id}(id=${session.id})}" th:text="${session.username}"></a>
+    <a class="nav-item btn btn-warning" th:href="@{/logout}">Logout</a>
+  </div>
+</nav>
+<div class="container">
+  <div class="card-body">
+    <h2>Edit Post</h2>
+    <form th:action="@{/posts/edit/{id}(id=${post.id})}" th:object="${post}" method="POST">
+
+      <div class="form-group">
+                <textarea class="form-control" name="body"
+                          th:field="*{body}" placeholder="What's o your mind...." required>
+                </textarea>
+      </div>
+
+      <div class="card-footer">
+        <button class="btn btn-primary" type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
+</body>
+</html>

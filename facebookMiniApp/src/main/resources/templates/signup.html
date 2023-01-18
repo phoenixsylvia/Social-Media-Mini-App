@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>FaceBook Mini</title>
+    <link th:href="@{/bootstrap4.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <h2>Sign Up</h2>
+    <div class="card-body">
+        <form  th:action="@{/signup}" th:object="${user}" method="POST">
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" class="form-control" id="firstName" name="firstName"
+                               th:field="*{firstName}" placeholder="Enter First Name" required>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" class="form-control" id="lastName" name="lastName"
+                               th:field="*{lastName}" placeholder="Enter Last Name" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name="username"
+                       th:field="*{username}" placeholder="Enter Username" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password"
+                       th:field="*{password}" placeholder="Enter Password" required>
+            </div>
+
+            <button class="btn btn-primary" type="submit">Sign Up</button>
+            <a th:href="@{/login}">Already have an account? Login</a>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

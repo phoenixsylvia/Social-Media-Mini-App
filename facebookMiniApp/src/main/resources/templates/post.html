@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>FaceBook Mini</title>
+  <link th:href="@{/bootstrap4.css}" rel="stylesheet">
+</head>
+<body>
+<nav class="nav_bar">
+  <a class="navbar-brand home-button" th:href="@{/home}">HOME</a>
+
+  <div>
+    <a style="margin-right: 10px" class="nav-item" th:href="@{/users/{id}(id=${session.id})}" th:text="${session.username}"></a>
+    <a class="nav-item btn btn-warning" th:href="@{/logout}">Logout</a>
+  </div>
+</nav>
+<div class="container">
+  <div class="card mb-3">
+    <div class="card-body">
+      <div class="author">
+        <span style="margin-right: 10px"><em>created by</em></span>
+        <a th:href="@{/users/{id}(id=${post.users.id})}">
+          <span class="card-title bold" th:text="${post.users.username}" ></span>
+        </a>
+      </div>
+      <p class="card-text" th:text="${post.body}"></p>
+      <hr class="mt-2">
+      <a th:href="@{/posts/edit/{id}(id=${post.id})}" class="btn btn-warning mx-4" th:if="${post.users.id} == ${session.id}" >Edit</a>
+      <a th:href="@{/posts/delete/{id}(id=${post.id})}" class="btn btn-danger mx-4" th:if="${post.users.id} == ${session.id}" >Delete</a>
+    </div>
+  </div>
+  <div class="card-body">
+    <h2>Add Comment</h2>
+    <form  th:action="@{/comments/{id}(id=${post.id})}" th:object="${comment}" method="POST">
+
+      <div class="form-group">
+                <textarea class="form-control" name="body" th:field="*{body}"
+                          placeholder="Add Comment" required>
+                </textarea>
+      </div>
+
+      <div class="card-footer">
+        <button class="btn btn-primary" type="submit">Comment</button>
+      </div>
+    </form>
+  </div>
+  <hr>
+  <h2 class="text-center">Comments</h2>
+  <div class="container" th:each="comment : ${comments}">
+    <div class="card mb-3">
+      <div class="card-body">
+        <div class="author">
+          <span style="margin-right: 10px"><em>created by</em></span>
+          <a th:href="@{/users/{id}(id=${post.users.id})}">
+            <span class="card-title bold" th:text="${comment.users.username}" ></span>
+          </a>
+        </div>
+        <p class="card-text" th:text="${comment.body}"></p>
+        <a th:href="@{/comments/like/{id}(id=${comment.id})}" class="btn btn-primary ">Like</a>
+        <span th:text="${comment.getLikes().size()}"></span>
+        <a th:href="@{/comments/edit/{id}(id=${comment.id})}" class="btn btn-warning mx-4">Edit</a>
+        <a th:href="@{/comments/delete/{id}(id=${comment.id})}" class="btn btn-danger mx-4">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

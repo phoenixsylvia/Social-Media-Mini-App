@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>FaceBook Mini</title>
+  <link th:href="@{/bootstrap4.css}" rel="stylesheet">
+</head>
+<body>
+<nav class="nav_bar">
+  <a class="navbar-brand home-button" th:href="@{/home}">HOME</a>
+
+  <div>
+    <a style="margin-right: 10px" class="nav-item" th:href="@{/users/{id}(id=${session.id})}" th:text="${session.username}"></a>
+    <a class="nav-item btn btn-warning" th:href="@{/logout}">Logout</a>
+  </div>
+</nav>
+</nav>
+<div class="container">
+  <h2 style="text-transform: uppercase" class="text-center" th:text="${user.username} + ' Posts'"></h2>
+  <div class="container" th:each="post : ${user.getPosts()}">
+    <div class="card mb-3">
+      <div class="card-body">
+        <div class="author">
+          <span style="margin-right: 10px"><em>created by</em></span>
+          <a th:href="@{/users/{id}(id=${post.users.id})}">
+            <span class="card-title bold" th:text="${post.users.username}" ></span>
+          </a>
+        </div>
+        <p class="card-text" th:text="${post.body}"></p>
+        <hr class="mt-2">
+        <a th:href="@{/users/like/{id}(id=${post.id})}" class="btn btn-primary ">Like</a>
+        <span th:text="${post.getLikes().size()}"></span>
+        <a th:href="@{/posts/{id}(id=${post.id})}" class="btn btn-primary mx-4">Comment</a>
+        <span th:text="${post.getComments().size()}"></span>
+        <a th:href="@{/posts/edit/{id}(id=${post.id})}" class="btn btn-warning mx-4" th:if="${post.users.id} == ${session.id}">Edit</a>
+        <a th:href="@{/posts/delete/{id}(id=${post.id})}" class="btn btn-danger mx-4" th:if="${post.users.id} == ${session.id}">Delete</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

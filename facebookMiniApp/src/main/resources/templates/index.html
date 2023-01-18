@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>FaceBook Mini</title>
+    <link th:href="@{/bootstrap4.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container justify-content-center">
+    <h1 class="text-center">Welcome To Facebook Mini</h1>
+    <div class="justify-content-center">
+        <a th:href="@{/login}" th:text="Login"></a> or
+        <a th:href="@{/signup}" th:text="Signup"></a> to continue.
+    </div>
+</div>
+
+</body>
+</html>
